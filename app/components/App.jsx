@@ -26,7 +26,7 @@ class App extends Component {
 		return (
 		<div>
 			<button onClick={this.addNote}>+</button>
-			<Notes notes={notes} />
+			<Notes notes={ notes } onDelete={ this.deleteNote } />
 		</div>
 		);
 	}
@@ -40,6 +40,15 @@ class App extends Component {
 				} )	
 			}
 		} );
+	}
+
+	deleteNote = ( id, e ) => {
+		// Avoid bubbling to edit
+		e.stopPropagation();
+
+		this.setState({
+			notes: this.state.notes.filter( note => note.id !== id )
+		})
 	}
 }
 
